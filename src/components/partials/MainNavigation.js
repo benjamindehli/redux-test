@@ -24,11 +24,10 @@ class MainNavigation extends Component {
 				<div className={style.mainNavigation + ' container'}>
 					<Link to={'/'}>
                         <div className={style.logo}>
-                            <img src={require('../../images/svg/geonorge-navbar-logo_dev.svg')}></img>
+                            <img src={logo}></img>
                         </div>
                     </Link>
 					<span className={style.searchResultsSectionHeading}>{this.props.heading}</span>
-					<img src={logo} />
 					<SearchBar />
 				</div>
 			</div>

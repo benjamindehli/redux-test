@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchSearchResults } from '../../actions/searchResultActions'
+import { fetchMetadataSearchResults, fetchArticleSearchResults } from '../../actions/searchResultActions'
 
 class SearchBar extends Component {
 
@@ -15,7 +15,8 @@ class SearchBar extends Component {
 	}
 
 	componentWillMount() {
-		this.props.fetchSearchResults();
+		this.props.fetchMetadataSearchResults();
+		this.props.fetchArticleSearchResults();
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -28,12 +29,15 @@ class SearchBar extends Component {
 		this.setState({
 			[e.target.name]: e.target.value
 		})
+		const searchString = this.state.searchString;
+		this.props.fetchMetadataSearchResults(e.target.value);
+		this.props.fetchArticleSearchResults(e.target.value);
 	}
 
 	onSubmit(e) {
 		e.preventDefault();
 		const searchString = this.state.searchString;
-		this.props.fetchSearchResults(searchString);
+		this.props.fetchMetadataSearchResults(searchString);
 	}
 	
 	render() {
@@ -51,7 +55,8 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-	fetchSearchResults: PropTypes.func.isRequired,
+	fetchMetadataSearchResults: PropTypes.func.isRequired,
+	fetchArticleSearchResults: PropTypes.func.isRequired,
 	searchResults: PropTypes.object.isRequired
 }
 
@@ -59,4 +64,4 @@ const mapStateToProps = state => ({
 	searchResults: state.searchResults
 });
 
-export default connect(mapStateToProps, { fetchSearchResults })(SearchBar);
+export default connect(mapStateToProps, { fetchMetadataSearchResults, fetchArticleSearchResults })(SearchBar);
