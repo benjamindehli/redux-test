@@ -17,6 +17,7 @@
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",
+    "react-dropdown-tree-select": "^1.16.0-beta.1",
     "react-fa": "^5.0.0",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
