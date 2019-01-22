@@ -2,12 +2,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchMetadataSearchResults } from '../../../actions/searchResultActions'
+import { fetchMapItems } from '../../../actions/MapItemActions'
+
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Col, Grid, Row } from 'react-bootstrap';
 
 import style from './MetadataSearchResult.scss';
-
 
 class MetadataSearchResult extends Component {
   constructor(props) {
@@ -57,12 +58,14 @@ class MetadataSearchResult extends Component {
       isAdded: true
     });
     this.addToLocalStorage(GetCapabilitiesUrl);
+    this.props.fetchMapItems();
   }
   removeFromMap(GetCapabilitiesUrl) {
     this.setState({
       isAdded: false
     });
     this.removeFromLocalStorage(GetCapabilitiesUrl);
+    this.props.fetchMapItems();
   }
 
   renderMapButton() {
@@ -102,5 +105,8 @@ class MetadataSearchResult extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  mapItems: state.mapItems
+});
 
-export default connect(null)(MetadataSearchResult);
+export default connect(mapStateToProps, { fetchMapItems })(MetadataSearchResult);

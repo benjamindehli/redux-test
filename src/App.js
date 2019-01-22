@@ -6,6 +6,8 @@ import { ConnectedRouter } from 'connected-react-router'
 import configureStore, { history } from './configureStore'
 
 import SearchResults from './components/partials/SearchResults';
+import MapContainer from './components/routes/MapContainer';
+
 import MainNavigation from './components/partials/MainNavigation';
 import style from './App.scss';
 
@@ -23,7 +25,7 @@ class App extends Component {
             <div className={style.pageContent}>
               <Switch>
                 <Route exact path="/" render={() => (<SearchResults />)} />
-                <Route exact path="/sok" render={() => (<SearchResults />)} />
+                <Route exact path="/kart" render={() => (<MapContainer />)} />
                 <Route render={() => (<div>Miss</div>)} />
               </Switch>
             </div>
