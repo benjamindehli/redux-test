@@ -18,13 +18,60 @@ class ListItem extends React.Component {
 	render() {
 		return (
 			<div key={this.props.listItem.Uuid}>
-				<h3>{this.props.listItem.Title}</h3>
-				</div>
+			<h3>{this.props.listItem.Title}</h3>
+			</div>
 			);
 	}
 }
 
 class SearchResults extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectedTab: {
+				id: 'metadata',
+				name: 'Kartkatalog',
+				counterProperty: 'NumFound'
+			},
+			tabs: [
+			{
+				id: 'metadata',
+				name: 'Kartkatalog',
+				counterProperty: 'NumFound'
+			},
+			{
+				id: 'articles',
+				name: 'Artikler',
+				counterProperty: 'NumFound'
+			}
+			]
+		}
+	}
+
+	setActiveTab(tab) {
+		this.setState({
+			selectedTab: tab
+		});
+	}
+
+	getCounterValue(type, counterProperty) {
+		let counterValue = 0;
+		if (this.props.searchResults[type] && this.props.searchResults[type][counterProperty]) {
+			counterValue = this.props.searchResults[type][counterProperty];
+		}
+		return counterValue;
+	}
+
+	renderTabs() {
+		let tabs = this.state.tabs.map((tab, i) => {
+			let tabClass = this.state.selectedTab.id === tab.id ? style.tab + ' active' : style.tab;
+			let counterValue = this.getCounterValue(tab.id, tab.counterProperty);
+			let counter = React.createElement('span', { className: 'badge ' + style.badge, key: i }, counterValue);
+			let tabContent = [tab.name, counter];
+			return React.createElement('li', { onClick: () => this.setActiveTab(tab), key: i, className: tabClass }, tabContent);
+		});
+		return React.createElement('ul', { className: style.tabs }, tabs);
+	}
 
 	renderMetadataSearchResults() {
 		let listItems = this.props.searchResults.metadata && this.props.searchResults.metadata.Results ? this.props.searchResults.metadata.Results : null;
@@ -49,12 +96,22 @@ class SearchResults extends Component {
 			return "";
 		}
 	}
+
+	renderActiveTabContent() {
+		if (this.state.selectedTab.id == 'metadata'){
+			return this.renderMetadataSearchResults();
+		}else if(this.state.selectedTab.id == 'articles'){
+			return this.renderArticleSearchResults();
+		}else {
+			return "";
+		}
+	}
 	
 	render() {
 		return (
 			<div>
-			{this.renderMetadataSearchResults()}
-			{this.renderArticleSearchResults()}
+			{this.renderTabs()}
+			{this.renderActiveTabContent()}
 			</div>
 			)
 	}
