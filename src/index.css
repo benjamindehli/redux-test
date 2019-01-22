@@ -23,6 +23,19 @@
 
 }
 
+
+body {
+    font-size: 1.6em;
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    font-family: 'Raleway', sans-serif;
+}
+
+
+
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
     body {
