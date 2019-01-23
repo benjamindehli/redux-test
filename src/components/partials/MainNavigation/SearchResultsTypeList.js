@@ -16,7 +16,7 @@ class SearchResultsTypeList extends Component {
 	renderDropdownResults() {
 		if (this.props.searchResults && this.props.searchResults.Results) {
 			const resultsTypeElements = this.props.searchResults.Results.map((result, i) => {
-				return <div className={style.searchResultsItem}><a href={result.ShowDetailsUrl} key={i}>{result.Title}</a></div>
+				return <div className={style.searchResultsItem} key={i}><a href={result.ShowDetailsUrl} key={i}>{result.Title}</a></div>
 			})
 			return resultsTypeElements;
 		}
