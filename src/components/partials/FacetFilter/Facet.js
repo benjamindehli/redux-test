@@ -33,25 +33,8 @@ class Facet extends Component {
             });
         }
         this.props.fetchMetadataSearchResults('', this.props.selectedFacets);
-      //  let searchString = this.getUrlParametersFromSelectedFacets(selectedFacets);
-
-      ///  this.props.showResults(searchString, null, null)
     }
 
-    getUrlParametersFromSelectedFacets(selectedFacets) {
-        let urlParameters = [];
-        let facetIndex = 0;
-        for (let [type, facets] of Object.entries(selectedFacets)) {
-            if (selectedFacets.hasOwnProperty(type)) {
-                facets.forEach((facet) => {
-                    urlParameters.push(`facets[${facetIndex}]name=${type}&facets[${facetIndex}]value=${facet.Name}`);
-                    facetIndex++;
-                })
-            }
-        }
-        let urlParameterString = urlParameters.join('&');
-        return urlParameterString;
-    }
 
     isChecked = () => {
         let isChecked = false;
@@ -85,12 +68,16 @@ class Facet extends Component {
                 [style.hidden]: !this.state.checked
             });
 
-            let filterItemElements = ""/*this.props.facet.FacetResults.map((facet, i) => {
-                return <Facet
-                facet={facet}
-                facetField={this.props.facetField}
-                key={i} />;
-            });*/
+            let filterItemElements = this.props.facet.FacetResults.map((facet, i) => { //TODO: Check other solutions for passing props
+                return <Facet facet={facet} 
+                facetField={this.props.facetField} 
+                selectedFacets={this.props.selectedFacets}
+                addSelectedFacet={this.props.addSelectedFacet}
+                removeSelectedFacet={this.props.removeSelectedFacet}
+                fetchMetadataSearchResults={this.props.fetchMetadataSearchResults}
+                key={i} 
+                />;
+            });
             return React.createElement('ul', { className: ulClassNames }, filterItemElements);
         } else {
             return "";
