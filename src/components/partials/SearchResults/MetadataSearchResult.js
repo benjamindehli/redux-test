@@ -72,9 +72,9 @@ class MetadataSearchResult extends Component {
       let action = this.state.isAdded
       ? () => this.removeFromMap(mapItem)
       : () => this.addToMap(mapItem);
-      let icon = <FontAwesomeIcon icon={this.state.isAdded ? ['far', 'map-marker-minus'] : ['far', 'map-marker-plus']} />    
+      let icon = <FontAwesomeIcon icon={this.state.isAdded ? ['far', 'map-marker-minus'] : ['far', 'map-marker-plus']} key="icon" />    
       let buttonClass = this.state.isAdded ? 'off' : 'on';      
-      let textContent = React.createElement('span', null, this.state.isAdded ? 'Fjern fra kart' : 'Legg til i kart')      
+      let textContent = React.createElement('span', {key: "textContent"}, this.state.isAdded ? 'Fjern fra kart' : 'Legg til i kart')
 
       let childElements = [icon, textContent];
       return React.createElement('span', { onClick: action, className: buttonClass }, childElements);     
