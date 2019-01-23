@@ -6,6 +6,8 @@ import { fetchMetadataSearchResults } from '../../actions/searchResultActions'
 import MetadataSearchResult from './SearchResults/MetadataSearchResult'
 import ArticleSearchResult from './SearchResults/ArticleSearchResult'
 
+import FacetFilter from './FacetFilter'
+
 import style from './SearchResults.scss';
 
 class SearchResults extends Component {
@@ -61,9 +63,9 @@ class SearchResults extends Component {
 		let listItems = this.props.searchResults.metadata && this.props.searchResults.metadata.Results ? this.props.searchResults.metadata.Results : null;
 		if (listItems){
 			let listItemElements = listItems.map((searchResult, i) => {
-				return <MetadataSearchResult searchResult={searchResult} key={i} />;
+				return [<MetadataSearchResult searchResult={searchResult} key={i} />];
 			});
-			return React.createElement('div', {className: style.list}, listItemElements);
+			return [<FacetFilter key="facetFilter" />, React.createElement('div', {className: style.list, key: "searchResult"}, listItemElements)];
 		} else {
 			return "";
 		}
@@ -82,9 +84,9 @@ class SearchResults extends Component {
 	}
 
 	renderActiveTabContent() {
-		if (this.state.selectedTab.id == 'metadata'){
+		if (this.state.selectedTab.id === 'metadata'){
 			return this.renderMetadataSearchResults();
-		}else if(this.state.selectedTab.id == 'articles'){
+		}else if(this.state.selectedTab.id === 'articles'){
 			return this.renderArticleSearchResults();
 		}else {
 			return "";
@@ -95,6 +97,7 @@ class SearchResults extends Component {
 		return (
 			<div>
 			{this.renderTabs()}
+
 			{this.renderActiveTabContent()}
 			</div>
 			)
