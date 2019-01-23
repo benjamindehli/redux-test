@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchMetadataSearchResults } from '../../../actions/searchResultActions'
 
 import { Col, Grid, Row } from 'react-bootstrap';
 

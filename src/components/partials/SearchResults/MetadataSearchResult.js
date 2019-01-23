@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchMetadataSearchResults } from '../../../actions/searchResultActions'
 import { fetchMapItems } from '../../../actions/MapItemActions'
-
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Col, Grid, Row } from 'react-bootstrap';

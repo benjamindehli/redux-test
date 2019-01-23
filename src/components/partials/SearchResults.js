@@ -8,22 +8,6 @@ import ArticleSearchResult from './SearchResults/ArticleSearchResult'
 
 import style from './SearchResults.scss';
 
-
-class ListItem extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-		};
-	}
-	render() {
-		return (
-			<div key={this.props.listItem.Uuid}>
-			<h3>{this.props.listItem.Title}</h3>
-			</div>
-			);
-	}
-}
-
 class SearchResults extends Component {
 	constructor(props) {
 		super(props);
