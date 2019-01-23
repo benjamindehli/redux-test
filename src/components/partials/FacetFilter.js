@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchMetadataSearchResults } from '../../actions/searchResultActions'
+
+import FacetFilterItem from './FacetFilter/FacetFilterItem';
 
 
-//import style from './FacetFilter.scss';
+import style from './FacetFilter.scss';
 
 class FacetFilter extends Component {
     constructor(props) {
@@ -12,16 +13,16 @@ class FacetFilter extends Component {
         this.state = {}
     }
 
-    getFacets() {
-        return this.props.searchResults.metadata && this.props.searchResults.metadata.Facets ? this.props.searchResults.metadata.Facets : [];
+    getFacetFilterItems() {
+        return this.props.availableFacets ? Object.keys(this.props.availableFacets) : [];
     }
 
     renderFacets() {
-        let facets = this.getFacets().map((facet, i) => {
-            let content = facet.NameTranslated;
-            return React.createElement('li', { key: i }, content);
+        let availableFacets = this.getFacetFilterItems();
+        let facets = availableFacets.map((facetField, i) => {
+            return <FacetFilterItem facetFilterItem={this.props.availableFacets[facetField]} key={facetField}/>;
         });
-        return React.createElement('ul', null, facets);
+        return React.createElement('ul', { className: style.facetFilter }, facets);
     }
     
     render() {
@@ -38,7 +39,8 @@ FacetFilter.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    searchResults: state.searchResults
+    searchResults: state.searchResults,
+    availableFacets: state.availableFacets
 });
 
-export default connect(mapStateToProps, { fetchMetadataSearchResults })(FacetFilter);
+export default connect(mapStateToProps)(FacetFilter);
