@@ -1,4 +1,4 @@
-import { FETCH_METADATASEARCHRESULTS, FETCH_ARTICLESEARCHRESULTS } from '../actions/types';
+import { FETCH_METADATASEARCHRESULTS, FETCH_ARTICLESEARCHRESULTS, FETCH_DROPDOWNSEARCHRESULTS } from '../actions/types';
 
 const initialState = {}
 
@@ -14,6 +14,14 @@ export default function(state = initialState, action) {
 				...state,
 				articles: action.payload
 			};
+		case FETCH_DROPDOWNSEARCHRESULTS:
+		return {
+			...state,
+			dropdownResults:{ 
+				...state.dropdownResults,
+				[action.searchResultsType]: action.payload 
+			}
+		}
 		default:
 			return state;
 	}
