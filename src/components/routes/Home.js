@@ -20,8 +20,4 @@ class Home extends Component {
 	}
 }
 
-Home.propTypes = {
-	mapItems: PropTypes.array.isRequired
-}
-
 export default connect(null)(Home);

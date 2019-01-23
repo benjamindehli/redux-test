@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchMapItems } from '../../../actions/MapItemActions'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Col, Grid, Row } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
 
 import style from './MetadataSearchResult.scss';
 
