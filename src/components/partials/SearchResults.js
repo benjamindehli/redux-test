@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchMetadataSearchResults } from '../../actions/searchResultActions'
+import { fetchMetadataSearchResults, fetchArticleSearchResults } from '../../actions/searchResultActions'
 
 import MetadataSearchResult from './SearchResults/MetadataSearchResult'
 import ArticleSearchResult from './SearchResults/ArticleSearchResult'
@@ -32,6 +32,11 @@ class SearchResults extends Component {
 			}
 			]
 		}
+	}
+
+	componentWillMount() {
+		this.props.fetchMetadataSearchResults();
+		this.props.fetchArticleSearchResults();
 	}
 
 	setActiveTab(tab) {
@@ -105,11 +110,13 @@ class SearchResults extends Component {
 }
 
 SearchResults.propTypes = {
-	searchResults: PropTypes.object.isRequired
+	searchResults: PropTypes.object.isRequired,
+	fetchMetadataSearchResults: PropTypes.func.isRequired,
+	fetchArticleSearchResults: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
 	searchResults: state.searchResults
 });
 
-export default connect(mapStateToProps, { fetchMetadataSearchResults })(SearchResults);
+export default connect(mapStateToProps, { fetchMetadataSearchResults, fetchArticleSearchResults })(SearchResults);
