@@ -1,18 +1,36 @@
-import { FETCH_METADATASEARCHRESULTS, FETCH_ARTICLESEARCHRESULTS, FETCH_DROPDOWNSEARCHRESULTS } from './types';
+import { FETCH_METADATASEARCHRESULTS, FETCH_ARTICLESEARCHRESULTS, FETCH_DROPDOWNSEARCHRESULTS, FETCH_AVAILABLEFACETS } from './types';
 
 export const fetchMetadataSearchResults = (searchString = "", facets = null) => dispatch => {
+	let facetsParameter = [];
 	if(facets) {
-		const facetsParameter = facets.map((facet, facetIndex) => {
-			return `facets[${facetIndex}]name=${facet.Type}&facets[${facetIndex}]value=${facet.Name}`;
+		let facetIndex = 0;
+		Object.keys(facets).map((facetField) => {
+			facets[facetField].map((facet) => {
+				facetsParameter.push(`facets[${facetIndex}]name=${facetField}&facets[${facetIndex}]value=${facet.Name}`);
+				facetIndex++;
+			})
 		})
 	}
-	fetch(`https://kartkatalog.dev.geonorge.no/api/search?text=${searchString}`)
+	let facetsParameterString = facetsParameter.join('&');
+	facetsParameterString = facetsParameterString ? "&" + facetsParameterString : "";
+
+	fetch(`https://kartkatalog.dev.geonorge.no/api/search?text=${searchString}${facetsParameterString}`)
 	.then(res => res.json())
-	.then(searchResults => dispatch({
+	.then(searchResults => {
+		dispatch({
 		type: FETCH_METADATASEARCHRESULTS,
 		payload: searchResults,
 		searchString: searchString
-	}))
+		})
+		let availableFacets = {};
+		searchResults.Facets.map((facetFilterItem) => {
+			availableFacets[facetFilterItem.FacetField] = facetFilterItem;
+		})
+		dispatch({
+			type: FETCH_AVAILABLEFACETS,
+			payload: availableFacets
+		})
+	})
 }
 
 export const fetchArticleSearchResults = (searchString = "") => dispatch => {
