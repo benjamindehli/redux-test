@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchMetadataSearchResults, fetchArticleSearchResults } from '../../actions/searchResultActions'
+import { fetchMetadataSearchResults, fetchArticleSearchResults } from '../../../actions/searchResultActions';
+
+import style from './SearchBar.scss';
+import searchIcon from '../../../images/svg/search-icon.svg';
 
 class SearchBar extends Component {
 
@@ -10,6 +13,7 @@ class SearchBar extends Component {
 		this.state = {
 			searchString: ''
 		};
+		this.onFocus = this.onFocus.bind(this);
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
@@ -34,6 +38,10 @@ class SearchBar extends Component {
 		this.props.fetchArticleSearchResults(e.target.value);
 	}
 
+	onFocus(e){
+
+	}
+
 	onSubmit(e) {
 		e.preventDefault();
 		const searchString = this.state.searchString;
@@ -42,14 +50,14 @@ class SearchBar extends Component {
 	
 	render() {
 		return (
-			<div>
-			<form onSubmit={this.onSubmit}>
-			<div>
-			<input type="text" name="searchString" onChange={this.onChange} value={this.state.searchString} />
-			<button type="submit">Søk</button>
-			</div>
+			<form onSubmit={this.onSubmit} className={style.searchInput}>
+				<input  placeholder="Søk" type="text" name="searchString" onChange={this.onChange} onFocus={this.onFocus} value={this.state.searchString} />
+				<button>
+					<img src={searchIcon}></img>
+				</button>
+				<div className={this.state.showResults ? style.searchResults + ' active' : style.searchResults}>
+				</div>
 			</form>
-			</div>
 			)
 	}
 }

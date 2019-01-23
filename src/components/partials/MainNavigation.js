@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { fetchMapItems } from '../../actions/MapItemActions'
 
-import SearchBar from './SearchBar';
+import SearchBar from './MainNavigation/SearchBar';
 
 import logo from '../../images/svg/geonorge-navbar-logo.svg';
 import style from './MainNavigation.scss'
